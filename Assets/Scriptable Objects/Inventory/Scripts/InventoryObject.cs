@@ -33,6 +33,10 @@ public class InventoryObject : ScriptableObject
                 {
                     GameObject.Find("Player").GetComponent<PlayerController>().playerHealth+= foodObject.healVal;
                 }
+                if(_item is BatteryObject battery)
+                {
+                    GameObject.Find("FlashLight").GetComponent<Flashlight>().battery += battery.chargeVal;
+                }
                 if (container[i].amount <= 0)
                 {
                     Destroy(itemGame);

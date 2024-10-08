@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286762bf048be59478bd01d712047092, type: 3}
+  m_Name: AAA Battery
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
+  prefab: {fileID: 5167401918270171522, guid: 2d2f6f000bc3f4d48a0033d92e5ba316, type: 3}
+  type: 1
+  description: Batteries that just barely manage to function even though they lost
+    majority of their chemical energy.
+  chargeVal: 3

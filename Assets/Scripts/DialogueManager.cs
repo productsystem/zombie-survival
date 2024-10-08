@@ -32,7 +32,7 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(s);
         }
-        DisplayNextSentence();
+        DisplayNextSentence();        
     }
 
     public void DisplayNextSentence()
@@ -64,5 +64,6 @@ public class DialogueManager : MonoBehaviour
         FindAnyObjectByType<PlayerController>().canMove = true;
         animator.SetBool("isOn", false);
         dialogueCurrent = null;
+        GameObject.Find("FlashLight").GetComponent<Flashlight>().canFlash = true;
     }
 }

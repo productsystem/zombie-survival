@@ -9,7 +9,7 @@ public class Zombie : MonoBehaviour
     public int enemyHealth = 3;
     public float normalRange = 5f;
     public float chaseRangeMultiplier = 2f;
-    public float moveSpeed = 10f;
+    public float moveSpeed = 100f;
 
     private float chaseRange;
     private Rigidbody2D rb;

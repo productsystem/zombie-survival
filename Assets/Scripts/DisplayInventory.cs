@@ -13,7 +13,7 @@ public class DisplayInventory : MonoBehaviour
     public int xSpaceItems;
     public int cols;
     public int ySpaceItems;
-    private bool alreadyOn;
+    public bool alreadyOn;
     Dictionary<InventorySlot, GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
     void Start()
     {
@@ -53,6 +53,7 @@ public class DisplayInventory : MonoBehaviour
             animator.SetBool("inventoryOn", false);
             alreadyOn = false;
         }
+
     }
 
     public void CreateDisplay()

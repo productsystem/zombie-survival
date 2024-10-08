@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerShooting : MonoBehaviour
 {
+    public ParticleSystem muzzleFlash;
+    public Light2D flashMuz;
     private Transform cameraPos;
     public float shakeDuration = 0.2f;
     public float shakeMag = 0.1f;
@@ -17,11 +20,11 @@ public class PlayerShooting : MonoBehaviour
     public int currentAmmo;
     public int weapon;
     public bool canFire = true;
-
     private float fireCooldown;
 
     void Start()
     {
+        flashMuz.enabled = false;
         cameraPos = GameObject.Find("Main Camera").GetComponent<Transform>();
         currentAmmo = maxAmmo;
         canFire = true;
@@ -40,14 +43,14 @@ public class PlayerShooting : MonoBehaviour
                 fireRate = 0.15f;//machine
                 canFire = true;
                 break;
-            default:
-                canFire = false;//idle
+            default://idle
+                canFire = false;
                 break;
         }
         
         fireCooldown -= Time.deltaTime;
 
-        if(Input.GetButton("Fire1") && fireCooldown <= 0f && currentAmmo > 0 && canFire)
+        if(Input.GetButton("Fire1") && fireCooldown <= 0f && currentAmmo > 0 && canFire && !FindFirstObjectByType<DisplayInventory>().alreadyOn)
         {
             Shoot();    
         }
@@ -59,6 +62,10 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
+        muzzleFlash.Play();
+        StartCoroutine(Flash());
+        
+        FindObjectOfType<AudioManager>().Play("Shoot");
         Shake();
         /*
         GameObject temp = Instantiate(bullet,firePoint.position, firePoint.rotation);
@@ -77,6 +84,13 @@ public class PlayerShooting : MonoBehaviour
         }
         currentAmmo--;
         fireCooldown = fireRate;
+    }
+
+    IEnumerator Flash()
+    {
+        flashMuz.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        flashMuz.enabled = false;
     }
 
     void Shake()

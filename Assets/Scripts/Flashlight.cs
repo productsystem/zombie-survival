@@ -13,24 +13,35 @@ public class Flashlight : MonoBehaviour
     public float battery = 10f;
     public float drainRate = 1f;
     private bool outBat = false;
+    public bool canFlash;
 
     void Start()
     {
+        canFlash = true;
         batteryBar = GameObject.Find("FlashFront").GetComponent<Image>();
     }
 
     void Update()
     {
+        if(battery > 10f)
+        {
+            battery = 10f;
+        }
         batteryBar.fillAmount = battery/10f;
-        Debug.Log(battery);
 
-        if(battery <= 0f)
+        if(battery < 0f)
         {
             batteryBar.fillAmount = 0;
+            battery = 0;
             outBat = true;
         }
+
+        if(battery > 0)
+        {
+            outBat = false;
+        }
         
-        if(isOn && !outBat){
+        if(isOn && !outBat && canFlash){
             battery -= drainRate * Time.deltaTime;
             GetComponent<Light2D>().intensity = 2.5f;
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -44,7 +55,7 @@ public class Flashlight : MonoBehaviour
             GetComponent<Light2D>().intensity = 0;
         }
 
-        if(Input.GetKeyDown(KeyCode.F) && !outBat)
+        if(Input.GetKeyDown(KeyCode.F) && !outBat && canFlash)
         {
             isOn = !isOn;
         }

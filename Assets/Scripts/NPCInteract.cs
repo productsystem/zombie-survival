@@ -37,6 +37,7 @@ public class NPCInteract : MonoBehaviour
             FindAnyObjectByType<PlayerController>().canMove = false;
             FindAnyObjectByType<Flashlight>().isOn = false;
             FindAnyObjectByType<PlayerShooting>().canFire = false;
+            GameObject.Find("FlashLight").GetComponent<Flashlight>().canFlash = false;
         }
     }
 
