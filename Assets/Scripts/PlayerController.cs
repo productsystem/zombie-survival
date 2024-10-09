@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     public InventoryObject inventory;
     public float moveSpeed = 5f;
+    public float stepIn = 0.424f;
     public float invincibilityTime = 1f;
     public bool canMove;
     private Color ogcolor;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public int weaponNum;
     public int playerHealth;
     private Rigidbody2D rb;
+    private float stepTime;
 
     private Vector2 movement; 
     private Vector2 mousePos;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        stepTime = stepIn;
         canMove = true;
         gameObject.SetActive(true);
         playerHealth = 10;
@@ -43,6 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!isInvincible)
         {
+            FindObjectOfType<AudioManager>().Play("Attack");
             playerHealth -= damage;
             ActivateInvinci();
         }
@@ -73,6 +77,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         if(playerHealth <= 0)
         {
             SceneManager.LoadScene("Game Scene");
@@ -92,6 +97,22 @@ public class PlayerController : MonoBehaviour
         }
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+
+
+        if(movement.magnitude > 0)
+        {
+            stepTime -= Time.deltaTime;
+            if(stepTime <= 0f)
+            {
+                FindObjectOfType<AudioManager>().Play("Walk");
+                stepTime = stepIn;
+            }
+        }
+        else
+        {
+            stepTime = stepIn;
+        }
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         
     }
@@ -114,6 +135,7 @@ public class PlayerController : MonoBehaviour
         if(item)
         {
             inventory.AddItem(item.item, 1);
+            FindObjectOfType<AudioManager>().Play("ItemTake");
             Destroy(other.gameObject);
         }
     }

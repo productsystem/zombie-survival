@@ -23,6 +23,8 @@ public class Flashlight : MonoBehaviour
 
     void Update()
     {
+        
+
         if(battery > 10f)
         {
             battery = 10f;
@@ -57,6 +59,7 @@ public class Flashlight : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.F) && !outBat && canFlash)
         {
+            FindObjectOfType<AudioManager>().Play("Flashlight");
             isOn = !isOn;
         }
 

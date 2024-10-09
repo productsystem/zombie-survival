@@ -78,6 +78,10 @@ public class PlayerShooting : MonoBehaviour
         {
         if(hit.collider.CompareTag("Enemy"))
         {
+            if(Random.Range(0f,1f) <= 0.5f)
+                FindObjectOfType<AudioManager>().Play("Moan1");
+            else
+                FindObjectOfType<AudioManager>().Play("Moan2");
             hit.collider.GetComponent<Zombie>().enemyHealth--;
             hit.collider.GetComponent<Zombie>().ChasePlayer();
         }
